@@ -1,0 +1,99 @@
+#!/bin/bash
+sudo apt update -y
+sudo apt install -y openjdk-8-jdk openjdk-17-jre-headless openjdk-17-jdk-headless unzip
+sudo apt install ruby-full -y
+sudo apt install wget
+cd /home/ubuntu
+wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.71/bin/apache-tomcat-9.0.71.zip
+wget https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/install
+chmod +x install
+unzip /home/ubuntu/apache-tomcat-9.0.71.zip -d /home/ubuntu/
+sudo chmod o+w /home/ubuntu/apache-tomcat-9.0.71/webapps/
+sudo ./install auto
+
+Adding an Application Load Balancer (ALB) to your AWS environment for your project running on port 8080 with autoscaling involves several steps. Here's a step-by-step guide:
+
+1. **Sign in to the AWS Management Console**: Go to the AWS Management Console and sign in with your credentials.
+
+2. **Navigate to the EC2 Dashboard**: Once signed in, navigate to the EC2 Dashboard by selecting "Services" from the top-left corner, and then selecting "EC2" under the "Compute" section.
+
+3. **Create a Target Group**:
+   - In the EC2 Dashboard, under the "Load Balancing" section, select "Target Groups".
+   - Click on the "Create target group" button.
+   - Configure the target group:
+     - Give your target group a name.
+     - Select the target type as "Instance".
+     - For "Protocol", choose "HTTP" if your application communicates over HTTP. If it's HTTPS, choose "HTTPS" and configure SSL accordingly.
+     - For "Port", enter "8080" since your project is running on port 8080.
+     - Configure other settings as per your requirements.
+   - Click on "Create".
+
+4. **Create an Application Load Balancer (ALB)**:
+   - In the EC2 Dashboard, under the "Load Balancing" section, select "Load Balancers".
+   - Click on the "Create Load Balancer" button.
+   - Choose "Application Load Balancer" as the load balancer type.
+   - Configure the load balancer:
+     - Give your load balancer a name.
+     - Configure listeners: Add a listener for HTTP on port 80, or HTTPS on port 443 if you're using SSL.
+     - Configure availability zones and subnets.
+     - Configure security settings as per your requirements.
+     - Select the previously created target group.
+     - Configure routing if needed.
+   - Click on "Next: Configure Security Settings" and proceed with the security settings.
+   - Review your configuration and click on "Create".
+
+5. **Configure Auto Scaling Group**:
+   - Go to the EC2 Dashboard, under the "Auto Scaling" section, select "Auto Scaling Groups".
+   - Select your auto scaling group.
+   - Click on the "Edit" button.
+   - In the "Load Balancing" section, select the ALB you created.
+   - Configure health checks and other settings as per your requirements.
+   - Click on "Save".
+
+6. **Update Security Groups**:
+   - Make sure your instances' security group allows traffic from the ALB on port 8080.
+   - If necessary, update the security group to allow inbound traffic from the ALB.
+
+7. **Test**: Once everything is configured, test your setup by accessing your application through the ALB's DNS name or IP address.
+
+That's it! Your application should now be accessible through the ALB, and traffic should be evenly distributed across the instances in your auto scaling group.
+
+
+create database puc;
+use puc;
+create table users
+(username varchar(100) primary key, name varchar(200), mobile bigint, email varchar(200), address varchar(500), licence_no varchar(200));
+create table vehicles
+(registration_no varchar(200) primary key, username varchar(100), foreign key (username) references users(username), chasis_no varchar(100), vehicle_name varchar(100), color varchar(50));
+create table lpg_cng_petrol
+(type varchar(100) primary key, co_level float(2), hydrocarbon int, full_form varchar(200));
+create table diesel
+(type varchar(100) primary key, abs_coeff float(2), max_smoke_den int, full_form varchar(200));
+create table isdiesel
+(registration_no varchar(200), foreign key (registration_no) references vehicles(registration_no), type varchar(100), foreign key (type) references diesel (type));
+create table isother
+(registration_no varchar(200), foreign key (registration_no) references vehicles(registration_no), type varchar(100), foreign key (type) references lpg_cng_petrol (type));
+create table puc
+(puc_no varchar(200) primary key, start_date date, end_date date);
+create table report_p
+(r_no varchar(200) primary key, foreign key (r_no) references vehicles(registration_no), in_co float(2), in_hydro int, puc_no varchar(200), foreign key (puc_no) references puc (puc_no));
+create table report_d
+(r_no varchar(200) primary key, foreign key (r_no) references vehicles(registration_no), in_lac float(2), in_density int, puc_no varchar(200), foreign key (puc_no) references puc (puc_no));
+alter table users add column password varchar(200);
+create table user_vehicle
+(username varchar(100), foreign key (username) references users(username), registration_no varchar(200), foreign key (registration_no) references vehicles(registration_no));
+insert into lpg_cng_petrol
+values('NCC_BS4_BS6', 0.3, 200, 'New Car BS6 and BS4 four-wheelers (CNG/LPG)'),
+('NCP_BS4_BS6', 0.3, 200, 'New Car BS6 and BS4 four-wheelers (Petrol)'),
+('NBC', 0.5, 500, 'New Bike BS6 two-wheelers/three-wheelers (CNG/LPG)'),
+('NBP', 0.5, 500, 'New Bike BS6 two-wheelers/three-wheelers (Petrol)'),
+('OV4_BS2_P', 3, 1500, 'Old BS2 four-wheelers (Petrol)'),
+('OV4_BS3_P', 0.5, 750, 'Old BS3 four-wheelers (Petrol)'),
+('OV24_23W_B', 4.5, 9000, 'Old Two/four-stroke two/three-wheelers manufactured on or before March 31, 2000'),
+('OV2_23W_A', 3.5, 6000, 'Old Two-stroke two/three-wheelers manufactured after March 31, 2000'),
+('OV4_23W_A', 3.5, 4500, 'Old Four-stroke two/three-wheelers manufactured after March 31, 2000');
+insert into diesel
+values('DV_BS4', 1.62, 50, 'Free acceleration test of BS4 diesel vehicles (naturally aspirated and turbocharged engine)'),
+('DV_PreBS4', 2.45, 65, 'Free acceleration test of pre-BS4 diesel vehicles (naturally aspirated and turbocharged engine)');
+create table vehicle_image
+(id int auto_increment primary key, registration_no varchar(200), foreign key (registration_no) references vehicles(registration_no), data longblob);

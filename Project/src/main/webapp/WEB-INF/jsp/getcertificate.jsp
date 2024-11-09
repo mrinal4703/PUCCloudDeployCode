@@ -174,7 +174,7 @@ th {
             
                 Class.forName("com.mysql.cj.jdbc.Driver");
 
-                Connection con = DriverManager.getConnection("jdbc:mysql://puc-db.cbiikaymkwx4.ap-south-1.rds.amazonaws.com:3306/puc?characterEncoding=utf8","root","root1234");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
                 
                 PreparedStatement stmt=con.prepareStatement("select * from isdiesel where registration_no=? union select * from isother where registration_no=?");
                 stmt.setString(1, v);
@@ -348,7 +348,7 @@ th {
             <%try{
                 Class.forName("com.mysql.cj.jdbc.Driver");
 
-                Connection con = DriverManager.getConnection("jdbc:mysql://puc-db.cbiikaymkwx4.ap-south-1.rds.amazonaws.com:3306/puc?characterEncoding=utf8","root","root1234");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
                 
                 PreparedStatement stmt=con.prepareStatement("select * from users where username=?");
                 stmt.setString(1, (String) session.getAttribute("userName"));
@@ -379,7 +379,7 @@ th {
         <div class="col" align="right">
             <%try{
             
-                Connection con = DriverManager.getConnection("jdbc:mysql://puc-db.cbiikaymkwx4.ap-south-1.rds.amazonaws.com:3306/puc?characterEncoding=utf8","root","root1234");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
                 
                 PreparedStatement stmt=con.prepareStatement("select * from vehicles natural join vehicle_image where  registration_no=?");
                 stmt.setString(1, v);

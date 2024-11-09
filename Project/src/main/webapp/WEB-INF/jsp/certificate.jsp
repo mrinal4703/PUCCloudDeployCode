@@ -173,7 +173,7 @@
             <r style="font-size: 25px; color: #666666; margin-top: 30px;">Emissions from the PUC testing console</r><br><br>
             <%try{
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://puc-db.cbiikaymkwx4.ap-south-1.rds.amazonaws.com:3306/puc?characterEncoding=utf8","root","root1234");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
                 
                 PreparedStatement stmt=con.prepareStatement("select * from users natural join vehicles natural join isother where registration_no=? union select * from users natural join vehicles natural join isdiesel where registration_no=?");
                 stmt.setString(1, v);
@@ -237,7 +237,7 @@
         String id="";
 
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://puc-db.cbiikaymkwx4.ap-south-1.rds.amazonaws.com:3306/puc?characterEncoding=utf8","root","root1234");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
 
         PreparedStatement stmt5=con.prepareStatement("select * from users natural join vehicles natural join isother where registration_no=? union select * from users natural join vehicles natural join isdiesel where registration_no=?");
         stmt5.setString(1, v);

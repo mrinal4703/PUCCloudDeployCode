@@ -55,7 +55,7 @@ public class ControllerClass {
         
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://puc-db.cbiikaymkwx4.ap-south-1.rds.amazonaws.com:3306/puc?characterEncoding=utf8","root","root1234");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
             PreparedStatement stmt=con.prepareStatement("insert into users(name, username, mobile, address, email, password, licence_no) values(?,?,?,?,?,?,?)");
             stmt.setString(1, u);
             stmt.setString(2, v);
@@ -86,7 +86,7 @@ public class ControllerClass {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            Connection con = DriverManager.getConnection("jdbc:mysql://puc-db.cbiikaymkwx4.ap-south-1.rds.amazonaws.com:3306/puc?characterEncoding=utf8","root","root1234");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
             PreparedStatement stmt = con.prepareStatement("select * from users where username=? and password=?");
 
             stmt.setString(1, x);
@@ -128,7 +128,7 @@ public class ControllerClass {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            Connection con = DriverManager.getConnection("jdbc:mysql://puc-db.cbiikaymkwx4.ap-south-1.rds.amazonaws.com:3306/puc?characterEncoding=utf8","root","root1234");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
             PreparedStatement stmt=con.prepareStatement("insert into vehicles (registration_no, username, chasis_no, vehicle_name, color) values (?,?,?,?,?)");
             stmt.setString(1, v);
             stmt.setString(2, u);
@@ -226,7 +226,7 @@ public class ControllerClass {
             boolean present=false;
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            Connection con = DriverManager.getConnection("jdbc:mysql://puc-db.cbiikaymkwx4.ap-south-1.rds.amazonaws.com:3306/puc?characterEncoding=utf8","root","root1234");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
             PreparedStatement stmt = con.prepareStatement("select count(*) from puc where puc_no=?");
             stmt.setString(1, id);
             
@@ -317,7 +317,7 @@ public class ControllerClass {
             String id=t+u;
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            Connection con = DriverManager.getConnection("jdbc:mysql://puc-db.cbiikaymkwx4.ap-south-1.rds.amazonaws.com:3306/puc?characterEncoding=utf8","root","root1234");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
             if(v.startsWith("D")){
                 PreparedStatement stmt = con.prepareStatement("delete from report_d where r_no=?");
                 stmt.setString(1, u);

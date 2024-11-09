@@ -250,7 +250,7 @@ int colind = 0;
 try {
     Class.forName("com.mysql.cj.jdbc.Driver");
 
-    Connection con = DriverManager.getConnection("jdbc:mysql://puc-db.cbiikaymkwx4.ap-south-1.rds.amazonaws.com:3306/puc?characterEncoding=utf8","root","root1234");
+    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
 
     PreparedStatement stmt2 = con.prepareStatement("select * from users natural join vehicles natural join isother where username=? union select * from users natural join vehicles natural join isdiesel where username=?");
     stmt2.setString(1, (String) session.getAttribute("userName"));
@@ -327,7 +327,7 @@ while (rst.next()) {
                 try{
                     Class.forName("com.mysql.cj.jdbc.Driver");
 
-                    Connection con = DriverManager.getConnection("jdbc:mysql://puc-db.cbiikaymkwx4.ap-south-1.rds.amazonaws.com:3306/puc?characterEncoding=utf8","root","root1234");
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
 
                     PreparedStatement stmt2 = con.prepareStatement("select * from users natural join vehicles natural join vehicle_image natural join isother where username=? union select * from users natural join vehicles natural join vehicle_image natural join isdiesel where username=?");
                     stmt2.setString(1, (String) session.getAttribute("userName"));
@@ -395,7 +395,7 @@ while (rst.next()) {
                 try{
                     Class.forName("com.mysql.cj.jdbc.Driver");
 
-                    Connection con = DriverManager.getConnection("jdbc:mysql://puc-db.cbiikaymkwx4.ap-south-1.rds.amazonaws.com:3306/puc?characterEncoding=utf8","root","root1234");
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
 
                     PreparedStatement stmt2 = con.prepareStatement("select * from users natural join vehicles natural join isother where username=? union select * from users natural join vehicles natural join isdiesel where username=?");
                     stmt2.setString(1, (String) session.getAttribute("userName"));
@@ -490,7 +490,7 @@ while (rst.next()) {
                                     try{
                                     Class.forName("com.mysql.cj.jdbc.Driver");
 
-                                    Connection con = DriverManager.getConnection("jdbc:mysql://puc-db.cbiikaymkwx4.ap-south-1.rds.amazonaws.com:3306/puc?characterEncoding=utf8","root","root1234");
+                                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
 
                                     PreparedStatement stmt2 = con.prepareStatement("select * from lpg_cng_petrol union select * from diesel");
                                     ResultSet rs=stmt2.executeQuery();

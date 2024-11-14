@@ -5,6 +5,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
+<%
+    String endpoint = (String) request.getAttribute("dbEndpoint");
+    String DBuser = (String) request.getAttribute("dbUsername");
+    String DBpass = (String) request.getAttribute("dbPassword");
+%>
+
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -250,7 +256,7 @@ int colind = 0;
 try {
     Class.forName("com.mysql.cj.jdbc.Driver");
 
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
+    Connection con = DriverManager.getConnection(endpoint,DBuser,DBpass);
 
     PreparedStatement stmt2 = con.prepareStatement("select * from users natural join vehicles natural join isother where username=? union select * from users natural join vehicles natural join isdiesel where username=?");
     stmt2.setString(1, (String) session.getAttribute("userName"));
@@ -327,7 +333,7 @@ while (rst.next()) {
                 try{
                     Class.forName("com.mysql.cj.jdbc.Driver");
 
-                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
+                    Connection con = DriverManager.getConnection(endpoint,DBuser,DBpass);
 
                     PreparedStatement stmt2 = con.prepareStatement("select * from users natural join vehicles natural join vehicle_image natural join isother where username=? union select * from users natural join vehicles natural join vehicle_image natural join isdiesel where username=?");
                     stmt2.setString(1, (String) session.getAttribute("userName"));
@@ -395,7 +401,7 @@ while (rst.next()) {
                 try{
                     Class.forName("com.mysql.cj.jdbc.Driver");
 
-                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
+                    Connection con = DriverManager.getConnection(endpoint,DBuser,DBpass);
 
                     PreparedStatement stmt2 = con.prepareStatement("select * from users natural join vehicles natural join isother where username=? union select * from users natural join vehicles natural join isdiesel where username=?");
                     stmt2.setString(1, (String) session.getAttribute("userName"));
@@ -490,7 +496,7 @@ while (rst.next()) {
                                     try{
                                     Class.forName("com.mysql.cj.jdbc.Driver");
 
-                                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
+                                    Connection con = DriverManager.getConnection(endpoint,DBuser,DBpass);
 
                                     PreparedStatement stmt2 = con.prepareStatement("select * from lpg_cng_petrol union select * from diesel");
                                     ResultSet rs=stmt2.executeQuery();

@@ -15,6 +15,9 @@
 <%String v = request.getParameter("value");
 String enddate="", type="", clas="", test="", full="", name="", vname="";
 float in_small=0 ; double out_small=0; int in_big=0, out_big=0;
+    String endpoint = (String) request.getAttribute("dbEndpoint");
+    String DBuser = (String) request.getAttribute("dbUsername");
+    String DBpass = (String) request.getAttribute("dbPassword");
 %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -174,7 +177,7 @@ th {
             
                 Class.forName("com.mysql.cj.jdbc.Driver");
 
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
+                Connection con = DriverManager.getConnection(endpoint,DBuser,DBpass);
                 
                 PreparedStatement stmt=con.prepareStatement("select * from isdiesel where registration_no=? union select * from isother where registration_no=?");
                 stmt.setString(1, v);
@@ -348,7 +351,7 @@ th {
             <%try{
                 Class.forName("com.mysql.cj.jdbc.Driver");
 
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
+                Connection con = DriverManager.getConnection(endpoint,DBuser,DBpass);
                 
                 PreparedStatement stmt=con.prepareStatement("select * from users where username=?");
                 stmt.setString(1, (String) session.getAttribute("userName"));
@@ -379,7 +382,7 @@ th {
         <div class="col" align="right">
             <%try{
             
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
+                Connection con = DriverManager.getConnection(endpoint,DBuser,DBpass);
                 
                 PreparedStatement stmt=con.prepareStatement("select * from vehicles natural join vehicle_image where  registration_no=?");
                 stmt.setString(1, v);

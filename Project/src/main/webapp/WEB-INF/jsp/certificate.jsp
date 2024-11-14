@@ -3,6 +3,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <%String v = request.getParameter("value");
+    String endpoint = (String) request.getAttribute("dbEndpoint");
+    String DBuser = (String) request.getAttribute("dbUsername");
+    String DBpass = (String) request.getAttribute("dbPassword");
 %>
 <html>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -173,7 +176,7 @@
             <r style="font-size: 25px; color: #666666; margin-top: 30px;">Emissions from the PUC testing console</r><br><br>
             <%try{
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
+                Connection con = DriverManager.getConnection(endpoint,DBuser,DBpass);
                 
                 PreparedStatement stmt=con.prepareStatement("select * from users natural join vehicles natural join isother where registration_no=? union select * from users natural join vehicles natural join isdiesel where registration_no=?");
                 stmt.setString(1, v);
@@ -237,7 +240,7 @@
         String id="";
 
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/puc?characterEncoding=utf8","root","root");
+        Connection con = DriverManager.getConnection(endpoint,DBuser,DBpass);
 
         PreparedStatement stmt5=con.prepareStatement("select * from users natural join vehicles natural join isother where registration_no=? union select * from users natural join vehicles natural join isdiesel where registration_no=?");
         stmt5.setString(1, v);
@@ -352,32 +355,3 @@ function updateEndDate() {
 </script>
 </body>
 </html>
-
-    <%--
-        if (request.getParameter("value") != null) {
-            java.util.Random random = new java.util.Random();
-            float randomFloat = random.nextFloat() * 10;
-            float roundedFloat = Math.round(randomFloat * 100.0) / 100.0f;
-            int randomInt = random.nextInt(14801) + 200;
-            int randomInt1 = random.nextInt(61) + 40;
-            request.setAttribute("roundedFloat", roundedFloat);
-            request.setAttribute("randomInt1", randomInt1);
-            request.setAttribute("randomInt", randomInt);
-        }
-    --%>
-
-
-<!--            <p style="font-size: 21px; color: gray;margin-top: 10px;">
-                Intake of Light Absorption Coefficient from your vehicle: <%--= request.getAttribute("roundedFloat") %>
-                Intake of Maximum Smoke Density in Hartridge units from your vehicle: <%= request.getAttribute("randomInt1") --%>
-            </p>-->
-
-<!--            <p style="font-size: 21px; color: gray;margin-top: 10px;">
-                Intake of Carbon Monoxide (in %) from your vehicle: <%--= request.getAttribute("roundedFloat") %>
-                Intake of Hydrocarbon (in PPM) from your vehicle: <%= request.getAttribute("randomInt") --%>
-            </p>-->
-            
-<!--            <form action="certificate" method="post">
-                <button type="submit" value="<%--= request.getParameter("value") --%>" name="value" class="btn">Randomize Values</button>
-            </form>-->
-            

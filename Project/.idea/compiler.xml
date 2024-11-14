@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="PucOnclick" options="-endorseddirs &quot;C:\D\Super 30\PUC-OnClick-main\Project\PUC\target/endorsed&quot;" />
+      <module name="PucOnclick" options="-endorseddirs C:\Users\mrina\Downloads\PUC\PUCCloudDeployCode\Project\target/endorsed" />
     </option>
   </component>
 </project>
